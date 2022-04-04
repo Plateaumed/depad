@@ -1,0 +1,23 @@
+# Depad (Deployment Admin)
+
+## Goals
+
+- The primary goal is to automate deployments on host machines. A `deployment` in this context is a group of services working together to deliver a cohesive experience to their target users. A `service` is one or more containers built from the same docker image serving the same kind of request. Depad should be able to run different deployments on the same host, even if they consist of identical services (created from identical docker images), while guaranteeing that each deployment is adequately isolated from the others in terms of networking, file system, ports, etc.
+
+## Requirements
+
+- Having established access or connection to a host machine it should be possible to manage deployments on that machine quite easily.
+- It may also be necessary to expose a public endpoint to which HTPPS requests can be sent in order to manage deployments on the host. This would make it possible to plug depad into existing CI/CD pipelines.
+- Deployments must be repeatable. It should be possible to perform a deployment a number of times, the same way every time. This can be achieved by having deployments represented in config files as specs, templates, etc.
+- Deployments must be reviewable. This can be achieved by having deployments represented in config files (as mentioned above) and committed to source control.
+- It therefore follows that deployments may (must?) be versioned.
+- A single host machine can have multiple deployments (whether of the same application of not). It is therefore necessary to be able to identify individual deployments, perhaps by the use of an ID and/or a unique name.
+- Deployments should be possible via remote connection to host machines.
+- In addition to creating deployments, it should be possible to update, delete/destroy, stop and restart deployments.
+- It may be possible to interact with a specified service within a deployment. Such an interaction could be (but not limited to) stopping, restarting, updating a service.
+- It should be possible to update a specified service across different deployments. For instance, it should be possible to update every MySQL service to another version across multiple deployments. A possible implementation is introducing the concept of `classes`, where a `class` is used to group different deployments together. A `tag` or a `label` could also be used.
+- Updating a deployment (or services within the deployment) should be done with as little downtime as possible. This may be achieved by automatically creating a proxy to the deployment that can map an endpoint to different instances of that deployment (or to different instances of a service within that deployment). This way updates without downtimes can be implemented by starting a new instance of the deployment (or a new instance of a service within that deployment) and eventually routing traffic away from the old instance to the new one. This is a very rough thought, and definitely needs to be discussed and refined.
+- Considering the fact that services will need free ports to run on, port management must be implemented. For instance, multiple instances of PostgreSQL may need to run in multiple deployments on the same host machine. They obviously cannot all run on port `5432`. Available ports must be assigned to them automatically (without human intervention) and a mapping of services to ports should be maintained. We want to maintain this registry/map (of services to ports) so that when we need to restart a service we can do that in a way that ensures other services that depend on it continue to successfully connect to it.
+- It should be possible to perform health checks on deployments and services automatically, periodically.
+- It may be necessary to specify how much system resources a deployment can consume. This doesn't have to be a hard requirement and is definitely one we should talk about.
+- A single deployment may span multiple host machines. This doesn't have to be a hard requirement currently and may not be implemented immediately.
