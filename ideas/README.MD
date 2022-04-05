@@ -33,7 +33,7 @@
 
 ## Port Management
 
-This section discusses how depad handles the assignment and management of random ports to services with the goal of avoiding port collisions with alread-open ports.
+This section discusses how depad handles the assignment and management of random ports to services with the goal of avoiding port collisions with already-open ports.
 - Depad will use a service like `portfinder` (or `portastic`) to find random open ports.
 - Generally speaking, depad will consider ports `3000` to `65499`
 - During deployment creation, only a range of 100 ports will be considered. For the first deployment this will be between 3000 to 3099; for the second, between 3100 to 3199. And so on. The current index/cursor (3000, 3100, 3200, etc) has to be remembered and updated after every deployment creation. After considering ports 65400 to 65499, it cycles back to 3000 to 3099 for the next deployment creation.
