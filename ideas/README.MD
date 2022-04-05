@@ -21,3 +21,22 @@
 - It should be possible to perform health checks on deployments and services automatically, periodically.
 - It may be necessary to specify how much system resources a deployment can consume. This doesn't have to be a hard requirement and is definitely one we should talk about.
 - A single deployment may span multiple host machines. This doesn't have to be a hard requirement currently and may not be implemented immediately.
+
+## Concepts
+
+- Deployment: A deployment in this context is a group of services working together to deliver a cohesive experience to their target users.
+- Deployment Config: This is a document specification that represents steps that need to be followed (e.g. scripts that need to be run, services that need to be started, etc.) in order to create, update or delete a deployment.
+- Depad Agent: This is a tool that can run as a script, server and/or daemon on a host machine via which deployments on that host will be managed.
+- Depad Cluster: This is a collection of depad agents that have been grouped into a cluster.
+- Depad Cluster Manager: This is a tool that can manage a depad cluster. As a use case, imagine we want to run different deployments of PlateauMed on 10 servers that we manage. Each server would need the depad agent installed on it. To create a new deployment of PlateauMed we would have to always decide on which of these 10 hosts we need the deployment running. If we group the hosts into a cluster then we only need to send the deployment config to the cluster manager. The cluster manager will be responsible for deciding which of its hosts it will redirect that deployment config to. This is very helpful in maintaining complete automation of deployment even as we add more servers to our rack.
+- Workflow: Our current deployment process also involves setup and the installation of dependencies. Since these actions don't deal with container management we can separate them out to their own process. We can call this process a workflow.
+
+## Port Management
+
+This section discusses how depad handles the assignment and management of random ports to services with the goal of avoiding port collisions with alread-open ports.
+- Depad will use a service like `portfinder` (or `portastic`) to find random open ports.
+- Generally speaking, depad will consider ports `3000` to `65499`
+- During deployment creation, only a range of 100 ports will be considered. For the first deployment this will be between 3000 to 3099; for the second, between 3100 to 3199. And so on. The current index/cursor (3000, 3100, 3200, etc) has to be remembered and updated after every deployment creation. After considering ports 65400 to 65499, it cycles back to 3000 to 3099 for the next deployment creation.
+- Ports assigned to a deployment are also stored by depad to ensure they never get used even while the deployment is not running. Those ports remain in the registry until the deployment gets destroyed.
+- The grouping of available ports into hundreds before randomly selecting ports to use is to reduce the chance of randomly picked open ports belonging to deployments (or services) that may not be running at that point in time.
+- If a group of 100 ports cannot yield enough available ports then the next group of 100 ports should be considered. This process should be repeated until sufficient number of available ports are found.
