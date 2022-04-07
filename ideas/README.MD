@@ -104,3 +104,35 @@ depad start mercy-hospital-deployment
   - run: docker-compose start
 - If at least one service is specified:
   - run: docker-compose start <service>
+
+#### Stop a Deployment
+
+This stops a deployment or a service within that deployment.
+
+```bash
+depad deployment stop <deployment name or ID> [options]
+depad stop <deployment name or ID> [options]
+```
+
+Example:
+
+```bash
+depad deployment stop mercy-hospital-deployment
+depad stop mercy-hospital-deployment
+```
+
+##### Options
+
+- --service | -s: the names or IDs of the services to stop, separated by spaces
+- --force | -F: force the deployment (or a service) to stop
+
+##### Implementation
+
+- If no service is specified:
+  - run: docker-compose stop
+- If at least one service is specified:
+  - run: docker-compose stop <service>
+- If --force is specified but no service is specified:
+  - run: docker-compose kill
+- If --force is specified and at least one service is specified:
+  - run: docker-compose kill <service>
