@@ -40,3 +40,67 @@ This section discusses how depad handles the assignment and management of random
 - Ports assigned to a deployment are also stored by depad to ensure they never get used even while the deployment is not running. Those ports remain in the registry until the deployment gets destroyed.
 - The grouping of available ports into hundreds before randomly selecting ports to use is to reduce the chance of randomly picked open ports belonging to deployments (or services) that may not be running at that point in time.
 - If a group of 100 ports cannot yield enough available ports then the next group of 100 ports should be considered. This process should be repeated until sufficient number of available ports are found.
+
+## APIs
+
+### Depad Agent
+
+#### Start Depad Server?
+
+-- coming soon --
+
+#### Start Depad Daemon?
+
+-- coming soon --
+
+#### Create a Deployment
+
+This creates a deployment for the first time and runs the deployment afterwards.
+
+```bash
+depad deployment create --name <deployment name> --config-file <deployment config file>
+depad create --name <deployment name> --config-file <deployment config file>
+```
+
+Example:
+
+```bash
+depad deployment create --name mercy-hospital-deployment --config-file mercy.deployment.yml
+depad create --name mercy-hospital-deployment --config-file mercy.deployment.yml
+```
+
+##### Implementation
+
+- Create the root directory for the deployment
+- Copy the deployment config file to the root directory
+- Register the deployment in the deployment registry
+- Output the `docker-compose.yml` file with depad-chosen resources like networks, ports and volumes
+- Register chosen ports in the port registry
+- run: docker-compose up -d
+
+#### Start a Deployment
+
+This starts a deployment or a service within that deployment.
+
+```bash
+depad deployment start <deployment name or ID> [options]
+depad start <deployment name or ID> [options]
+```
+
+Example:
+
+```bash
+depad deployment start mercy-hospital-deployment
+depad start mercy-hospital-deployment
+```
+
+##### Options
+
+- --service | -s: the names or IDs of the services to start, separated by spaces
+
+##### Implementation
+
+- If no service is specified:
+  - run: docker-compose start
+- If at least one service is specified:
+  - run: docker-compose start <service>
