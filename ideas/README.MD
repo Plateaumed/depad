@@ -136,3 +136,32 @@ depad stop mercy-hospital-deployment
   - run: docker-compose kill
 - If --force is specified and at least one service is specified:
   - run: docker-compose kill <service>
+
+#### Restart a Deployment
+
+This restarts a deployment or a service within that deployment.
+
+```bash
+depad deployment restart <deployment name or ID> [options]
+depad restart <deployment name or ID> [options]
+```
+
+Example:
+
+```bash
+depad deployment restart mercy-hospital-deployment
+depad restart mercy-hospital-deployment
+```
+
+##### Options
+
+- --service | -s: the names or IDs of the services to restart, separated by spaces
+
+##### Implementation
+
+- If no service is specified:
+  - run: docker-compose restart
+- If at least one service is specified:
+  - run: docker-compose restart <service>
+  
+#### Update a Deployment
