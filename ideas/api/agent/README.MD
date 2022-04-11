@@ -146,3 +146,24 @@ depad destroy mercy-hospital-deployment
 - Remove chosen ports from the port registry
 - Delete deployment from deployment registry
 - Delete root folder created when the deployment was initially created
+
+#### List Deployments
+  
+This list the deployments on the host machine. By default only running deployments are listed.
+
+```bash
+depad deployment list [options]
+depad list [options]
+```
+
+Example:
+
+```bash
+depad deployment list --all
+depad list --where state=stopped
+```
+  
+##### Options
+
+- --all: list all deployments, whether running or not
+- --where: specifies the condition deployments must meet to be part of the result list
