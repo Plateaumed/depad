@@ -120,3 +120,29 @@ depad restart mercy-hospital-deployment
   - run: docker-compose restart <service>
   
 #### Update a Deployment
+  
+-- coming soon --
+  
+#### Destroy a Deployment
+  
+This destroys a deployment and, in the process, frees up all resources (ports, volumes, networks) that were reserved for it.
+
+```bash
+depad deployment destroy <deployment name or ID>
+depad destroy <deployment name or ID>
+```
+
+Example:
+
+```bash
+depad deployment destroy mercy-hospital-deployment
+depad destroy mercy-hospital-deployment
+```
+
+##### Implementation
+
+- run: docker-compose down --rmi all --volumes
+  - I'm not sure about the --rmi all because we don't want to delete images that are being used by other containers of other services in other deployments
+- Remove chosen ports from the port registry
+- Delete deployment from deployment registry
+- Delete root folder created when the deployment was initially created
