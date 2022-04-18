@@ -167,3 +167,68 @@ depad list --where state=stopped
 
 - --all: list all deployments, whether running or not
 - --where: specifies the condition deployments must meet to be part of the result list
+
+#### Inspect Deployments
+  
+This shows resources and configs being used by a deployment.
+  
+```bash
+depad deployment inspect <deployment name or ID>
+depad inspect <deployment name or ID>
+```
+
+Example:
+
+```bash
+depad deployment inspect mercy-hospital-deployment
+depad inspect mercy-hospital-deployment
+```
+
+##### Implementation
+
+- consider docker-compose ps
+
+#### Log Deployments
+  
+This fetches log info being output by/from a deployment.
+  
+```bash
+depad deployment log <deployment name or ID>
+depad log <deployment name or ID>
+```
+
+Example:
+
+```bash
+depad deployment log mercy-hospital-deployment
+depad log mercy-hospital-deployment
+```
+
+##### Implementation
+
+- run: docker-compose logs -f
+
+#### Check Health of Deployments
+  
+This fetches the health status of a deployment.
+  
+```bash
+depad deployment health <deployment name or ID>
+depad health <deployment name or ID>
+```
+
+Example:
+
+```bash
+depad deployment health mercy-hospital-deployment
+depad health mercy-hospital-deployment
+```
+
+##### Implementation
+
+- run: docker-compose ps --all --services
+- Iterate through the rows to see if there's any container that is not running (state != "Up (healthy)")
+
+#### Collecting Metrics/Stats for a Deployment
+  
+-- TODO: see Prometheus --
