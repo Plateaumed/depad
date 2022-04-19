@@ -44,3 +44,4 @@ This section discusses how depad handles the assignment and management of random
 ## APIs
 
 - [Depad Agent API](api/agent/README.MD)
+- [Depad Cluster API](api/cluster/README.MD)
