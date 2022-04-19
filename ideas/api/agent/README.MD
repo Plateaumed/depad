@@ -232,3 +232,111 @@ depad health mercy-hospital-deployment
 #### Collecting Metrics/Stats for a Deployment
   
 -- TODO: see Prometheus --
+
+#### See Config History of Deployments
+  
+This fetches the history of configurations from which the deployment was created.
+  
+```bash
+depad deployment history <deployment name or ID>
+depad history <deployment name or ID>
+```
+
+Example:
+
+```bash
+depad deployment history mercy-hospital-deployment
+depad history mercy-hospital-deployment
+```
+
+##### Implementation
+
+- One possible implementation could be to store the `diffs` of the deployment configs similar to how git would have done it
+
+#### Rollback a Deployment
+  
+This rolls back the deployment to a version that was created from a previous configuration. By default it rolls back using the immediate previous deployment configuration but you can specify which configuration to use or how many steps backward to go.
+  
+```bash
+depad deployment rollback <deployment name or ID> [options]
+depad rollback <deployment name or ID> [options]
+```
+
+Example:
+
+```bash
+depad deployment rollback mercy-hospital-deployment
+depad rollback mercy-hospital-deployment
+depad rollback mercy-hospital-deployment --config-id 00fac456bb3
+depad rollback mercy-hospital-deployment --steps-back 3
+```
+  
+##### Options
+
+- --config-id: the ID of the configuration to use
+  - you can get this by running: depad history
+- --steps-back: a positive integer specifying how many steps back in the deployment history to go
+
+#### Scaling a Deployment
+  
+-- coming soon --
+  
+#### Secrets and Environment Variables
+  
+While you can specify environment variables in the config file using the `{{env.XXX}}` notation, you shouldn't do that. Instead, create those variables in your deployment. Whenever services are started depad will pass all (or the needed) environment variables to them automatically.
+  
+NOTE: The `{{env.XXX}}` syntax may change.
+  
+Environment variables in depad are always encripted.
+  
+```bash
+depad env <deployment name or ID> [options]
+```
+  
+##### Options
+
+- --set | -s: create an environment variable
+- --env-file: specify an env file from which environment variables will be created
+- --rm: remove/delete an environment variable
+
+Example:
+
+```bash
+depad env mercy-hospital-deployment --set var=VALUE
+depad env mercy-hospital-deployment --set var="VALUE WITH SPACES"
+depad env mercy-hospital-deployment --env-file file.env
+```
+  
+To see all env variables (without their values):
+
+```bash
+depad env mercy-hospital-deployment
+```
+  
+To remove an env variable:
+
+```bash
+depad env mercy-hospital-deployment --rm var
+```
+
+##### Implementation
+
+- In the generated docker-compose.yml file, each service is going to have:
+  - env_file: .env
+- In the root directory of the deployment depad creates a `enc.env` file and writes the env vars there, ensuring that their values are encripted.
+- During encription of env vars use the deployment ID as the salt.
+- When starting the deployment (or a service in the deployment) depad will have the decripted form of the `enc.env` file in a just-in-time generated file named `.env`
+- After the deployment (or the service) is started, depad deletes the `.env` file
+- This is not the best and definitely not the safest implementation but it's one that ensures that when a safer implementation is found, the current behaviours it encourages (e.g. not specifying env vars in the config file) can still be maintained.
+
+#### Create a Workflow
+  
+```bash
+depad workflow create --name <workflow name> --config-file <workflow config file>
+```
+
+Example:
+
+```bash
+depad workflow create --name app-setup-workflow --config-file workflow.yml
+```
