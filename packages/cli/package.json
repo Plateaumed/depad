@@ -1,5 +1,5 @@
 {
-  "name": "@depad/core",
+  "name": "@depad/cli",
   "version": "0.0.0",
   "description": "> TODO: description",
   "author": "Franklin Chieze <chieze.franklin@gmail.com>",
@@ -14,18 +14,20 @@
   "files": [
     "lib"
   ],
-  "publishConfig": {
-    "access": "public"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Plateaumed/depad.git"
   },
   "scripts": {
+    "start": "ts-node src/index.ts",
     "test": "echo \"Error: run tests from root\" && exit 1",
     "tsc": "tsc"
   },
   "bugs": {
     "url": "https://github.com/Plateaumed/depad/issues"
+  },
+  "dependencies": {
+    "@depad/core": "^0.0.0",
+    "ts-node": "^10.7.0"
   }
 }
