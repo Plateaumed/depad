@@ -1,9 +1,12 @@
 {
   "name": "depad",
-  "private": true,
+  "private": false,
   "devDependencies": {
     "@types/node": "^17.0.25",
     "lerna": "^4.0.0",
     "typescript": "^4.6.3"
+  },
+  "scripts": {
+    "publish": "lerna run tsc && lerna publish"
   }
 }
