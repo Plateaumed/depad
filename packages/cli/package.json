@@ -1,6 +1,5 @@
 {
   "name": "@depad/cli",
-  "private": false,
   "version": "0.0.2",
   "description": "> TODO: description",
   "author": "Franklin Chieze <chieze.franklin@gmail.com>",
