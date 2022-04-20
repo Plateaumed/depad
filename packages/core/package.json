@@ -1,5 +1,6 @@
 {
   "name": "@depad/core",
+  "private": false,
   "version": "0.0.1",
   "description": "> TODO: description",
   "author": "Franklin Chieze <chieze.franklin@gmail.com>",
@@ -27,5 +28,6 @@
   },
   "bugs": {
     "url": "https://github.com/Plateaumed/depad/issues"
-  }
+  },
+  "gitHead": "d73607da1cf8ac03db2dde6f36cf7acc1b91028e"
 }
