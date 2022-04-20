@@ -1,0 +1,1 @@
+console.log(">>>>>>>>>>>> running in package core")
