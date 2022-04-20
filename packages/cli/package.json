@@ -1,6 +1,6 @@
 {
   "name": "@depad/cli",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "> TODO: description",
   "author": "Franklin Chieze <chieze.franklin@gmail.com>",
   "homepage": "https://github.com/Plateaumed/depad#readme",
@@ -30,7 +30,7 @@
     "url": "https://github.com/Plateaumed/depad/issues"
   },
   "dependencies": {
-    "@depad/core": "^0.0.2",
+    "@depad/core": "^0.0.3",
     "ts-node": "^10.7.0"
   },
   "gitHead": "31c6da6e41be45e8021be9d53c7f77751923883d"
