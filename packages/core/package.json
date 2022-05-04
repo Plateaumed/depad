@@ -28,5 +28,12 @@
   "bugs": {
     "url": "https://github.com/Plateaumed/depad/issues"
   },
-  "gitHead": "31c6da6e41be45e8021be9d53c7f77751923883d"
+  "gitHead": "31c6da6e41be45e8021be9d53c7f77751923883d",
+  "dependencies": {
+    "dockerode": "^3.3.1",
+    "yaml": "^2.0.1"
+  },
+  "devDependencies": {
+    "@types/dockerode": "^3.3.8"
+  }
 }
