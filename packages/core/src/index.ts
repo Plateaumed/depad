@@ -1,4 +1,4 @@
-import * as Docker from "dockerode";
+import Docker from "dockerode";
 export * from "./create-deployment";
 
 const docker = new Docker();
