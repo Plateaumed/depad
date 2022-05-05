@@ -3,6 +3,7 @@ import { hideBin } from "yargs/helpers";
 import fs from "fs-extra";
 import path from "path";
 import { showTitleAndBanner } from "./utils/logger";
+import RootService from "./services/RootService";
 
 export async function cli(): Promise<any> {
     showTitleAndBanner();
@@ -17,9 +18,11 @@ export async function cli(): Promise<any> {
                         flag: "r",
                     })
                 );
-                console.log(packageJson.version)
+                console.log(`CLI Version: ${packageJson.version}`)
 
-                // server version
+                new RootService().getVersion()
+                    .then((response) => console.log(`API version: ${response}`))
+                    .catch(console.error);
             }
         ).parse();
 }

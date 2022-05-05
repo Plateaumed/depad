@@ -11,5 +11,8 @@
   },
   "scripts": {
     "publish": "lerna run tsc && lerna publish"
+  },
+  "dependencies": {
+    "axios": "^0.27.2"
   }
 }

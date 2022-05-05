@@ -38,7 +38,6 @@
     "url": "https://github.com/Plateaumed/depad/issues"
   },
   "dependencies": {
-    "@depad/core": "^0.0.3",
     "figlet": "^1.5.2",
     "fs-extra": "^10.1.0",
     "kleur": "^4.1.4",
