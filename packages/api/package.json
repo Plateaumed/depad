@@ -22,9 +22,9 @@
     "url": "git+https://github.com/Plateaumed/depad.git"
   },
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
-    "dev2": "ts-node src/index.ts",
     "start": "NODE_ENV=production node lib/src/index.js",
+    "start:dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "start:dev2": "ts-node src/index.ts",
     "test": "echo \"Error: run tests from root\" && exit 1",
     "tsc": "tsc",
     "ttsc": "ttsc"
