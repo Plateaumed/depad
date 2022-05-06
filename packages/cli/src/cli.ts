@@ -1,25 +1,10 @@
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
-import { startServer } from "@depad/api";
-import { version } from "./commands/version";
+import { start, version } from "./commands";
 
 export async function cli(): Promise<any> {
     yargs(hideBin(process.argv))
-        .command(
-            "start",
-            "Start the API server",
-            async (_yargs) => {
-                const argv = await _yargs.argv;
-                if (argv.port) {
-                    const port = parseInt(String(argv.port));
-                    if (!isNaN(port)) startServer(port);
-                }
-            }, (argv) => {
-                // if (argv.port) {
-                //     const port = parseInt(String(argv.port));
-                //     if (!isNaN(port)) startServer(port);
-                // }
-            })
+        .command("start", "Start the API server", start)
         .option('port', {
                 alias: 'p',
                 type: 'number',
