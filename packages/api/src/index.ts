@@ -4,7 +4,7 @@ import http from "http"; // https
 import { Server } from "socket.io";
 import routes from "./routes";
 
-const port = 3000;
+// const port = 3000;
 
 const app = express();
 app.use(cors());
@@ -21,8 +21,10 @@ app.use(express.json());
 
 export const websocket = io;
 
-server.listen(port, () => {
-    console.log(`Depad is running at http://localhost:${port}`);
-
-    routes(app);
-});
+export const startServer = (port: number) => {
+    server.listen(port, () => {
+        console.log(`Depad is running at http://localhost:${port}`);
+    
+        routes(app);
+    });
+}

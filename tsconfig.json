@@ -15,7 +15,11 @@
    ]
  },
  "exclude": [
-   "node_modules",
-   "**/*.spec.ts"
+   "**/*/node_modules",
+   "**/*/__mocks__",
+   "**/*.spec.ts",
+   "**/*.test.ts",
+   "**/*.spec.js",
+   "**/*.test.js"
  ]
 }

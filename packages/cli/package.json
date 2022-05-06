@@ -32,21 +32,20 @@
     "global": "npm run build && npm i -g",
     "start": "depad",
     "start:dev": "ts-node src/index.ts",
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "test": "jest"
   },
   "bugs": {
     "url": "https://github.com/Plateaumed/depad/issues"
   },
   "dependencies": {
+    "@depad/api": "^0.0.3",
     "figlet": "^1.5.2",
-    "fs-extra": "^10.1.0",
     "kleur": "^4.1.4",
     "yargs": "^17.4.1"
   },
   "gitHead": "31c6da6e41be45e8021be9d53c7f77751923883d",
   "devDependencies": {
     "@types/figlet": "^1.5.4",
-    "@types/fs-extra": "^9.0.13",
     "@types/yargs": "^17.0.10"
   }
 }
