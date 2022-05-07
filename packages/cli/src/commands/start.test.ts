@@ -9,11 +9,7 @@ describe("start command", () => {
 
     const parser = yargs.command(start).help();
 
-    const output = await new Promise((resolve) => {
-      parser.parse("start --port 3000", (_err, _argv, output) => {
-        resolve(output);
-      });
-    });
+    await parser.parse("start --port 3000");
 
     expect(startServer).toHaveBeenCalledTimes(1);
     expect(startServer).toHaveBeenCalledWith(3000);

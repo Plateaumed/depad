@@ -1,7 +1,7 @@
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
-import { version } from "./commands";
 import start from "./commands/start";
+import version from "./commands/version";
 
 export async function cli(): Promise<any> {
   yargs(hideBin(process.argv))
@@ -30,7 +30,7 @@ export async function cli(): Promise<any> {
       },
     })
     .command(start)
-    .command("version", "Print the CLI and API version info", version)
+    .command(version)
     .demandCommand(1, "You need to provide a depad command or option")
     .parse();
 }

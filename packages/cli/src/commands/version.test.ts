@@ -1,6 +1,7 @@
 import axios from "axios";
 import fs from "fs-extra";
-import { version } from "./version";
+import yargs from "yargs";
+import version from "./version";
 
 jest.mock("axios");
 jest.mock("fs-extra");
@@ -13,7 +14,10 @@ describe("version command", () => {
     fs.readFileSync.mockReturnValueOnce('{ "version": "0.0.3" }');
     console.log = jest.fn();
 
-    await version();
+    // await version();
+    const parser = yargs.command(version).help();
+
+    await parser.parse("version");
 
     // fs.readFileSync should be called when getting the cli version
     expect(fs.readFileSync).toHaveBeenCalledTimes(1);
