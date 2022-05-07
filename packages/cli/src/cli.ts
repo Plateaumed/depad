@@ -1,16 +1,36 @@
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
-import { start, version } from "./commands";
+import { version } from "./commands";
+import start from "./commands/start";
 
 export async function cli(): Promise<any> {
   yargs(hideBin(process.argv))
-    .command("start", "Start the API server", start)
-    .option("port", {
-      alias: "p",
-      type: "number",
-      description: "Specify a port for the server",
+    .usage("Usage: $0 [command] [options]")
+    .command({
+      command: "get <resource>",
+      // aliases: ['config', 'cfg'],
+      describe: "Get a resource",
+      // deprecated: false,
+      builder: (yargs: yargs.Argv<{}>) => {
+        return yargs
+          .positional("resource", {
+            describe: "To type of resource to get",
+            type: "string",
+            // default: "deployment",
+          })
+          .option("namespace", {
+            alias: "n",
+            type: "string",
+            description: "Specify a namespacew for the server",
+          })
+          .demandOption("namespace");
+      },
+      handler: (argv: yargs.ArgumentsCamelCase<{}>) => {
+        console.log(argv);
+      },
     })
-    .usage("")
+    .command(start)
     .command("version", "Print the CLI and API version info", version)
+    .demandCommand(1, "You need to provide a depad command or option")
     .parse();
 }
