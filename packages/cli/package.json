@@ -29,7 +29,7 @@
     "build:dev": "tsc",
     "clean:all": "rm -rf ./node_modules ./package-lock.json ./lib",
     "clean:some": "rm -rf ./lib",
-    "global": "npm run build && npm i -g",
+    "install:dev": "npm run build && npm i -g",
     "start": "depad",
     "start:dev": "ts-node src/index.ts",
     "test": "jest"
