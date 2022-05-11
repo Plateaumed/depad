@@ -1,4 +1,7 @@
-import { hello } from "@depad/core";
+import { cli } from "./cli";
 
-console.log(">>>>>>>>> in package cli")
-console.log(hello());
+export function index(): Promise<any> {
+  return cli();
+}
+
+index();

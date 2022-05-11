@@ -7,6 +7,9 @@
   "license": "ISC",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
+  "bin": {
+    "depad": "./bin/index.js"
+  },
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -22,16 +25,27 @@
     "url": "git+https://github.com/Plateaumed/depad.git"
   },
   "scripts": {
-    "start": "ts-node src/index.ts",
-    "test": "echo \"Error: run tests from root\" && exit 1",
-    "tsc": "tsc"
+    "build": "npm run clean:some && tsc -p .",
+    "build:dev": "tsc",
+    "clean:all": "rm -rf ./node_modules ./package-lock.json ./lib",
+    "clean:some": "rm -rf ./lib",
+    "install:dev": "npm run build && npm i -g",
+    "start": "depad",
+    "start:dev": "ts-node src/index.ts",
+    "test": "jest"
   },
   "bugs": {
     "url": "https://github.com/Plateaumed/depad/issues"
   },
   "dependencies": {
-    "@depad/core": "^0.0.3",
-    "ts-node": "^10.7.0"
+    "@depad/api": "^0.0.3",
+    "figlet": "^1.5.2",
+    "kleur": "^4.1.4",
+    "yargs": "^17.4.1"
   },
-  "gitHead": "31c6da6e41be45e8021be9d53c7f77751923883d"
+  "gitHead": "31c6da6e41be45e8021be9d53c7f77751923883d",
+  "devDependencies": {
+    "@types/figlet": "^1.5.4",
+    "@types/yargs": "^17.0.10"
+  }
 }
