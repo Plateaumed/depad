@@ -73,3 +73,14 @@ lerna run test
 ```sh
 lerna run test --scope=@depad/cli
 ```
+
+# Resources
+
+- lerna
+
+  - https://blog.logrocket.com/setting-up-monorepo-with-lerna-typescript/
+
+- yargs
+  - https://yargs.js.org/
+  - https://github.com/yargs/yargs/blob/HEAD/docs/advanced.md#commands
+  - https://github.com/yargs/yargs/blob/HEAD/docs/examples.md
